@@ -1,0 +1,13 @@
+{
+    "name": "@hwndmaster/atom-api-nswag",
+    "version": "0.1.0",
+    "description": "Customized NSwag Liquid templates for Axios TypeScript clients. Point NSwag's templateDirectory to node_modules/@hwndmaster/atom-api-nswag/templates/",
+    "files": ["templates"],
+    "scripts": {
+        "build": "echo 'No build step for atom-api-nswag'"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
+    }
+}

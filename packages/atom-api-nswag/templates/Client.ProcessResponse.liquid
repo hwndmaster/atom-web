@@ -1,0 +1,30 @@
+﻿{% comment %}
+    Originally taken from here: https://github.com/RicoSuter/NSwag/blob/master/src/NSwag.CodeGeneration.TypeScript/Templates/Client.ProcessResponse.liquid
+    What's changed:
+    - Added a check for 404 to make it easier to debug in unit tests
+{% endcomment %}
+
+
+{% template Client.ProcessResponse.ReadHeaders %}
+{% if operation.HandleReferences and operation.RequiresMappings -%}
+let _mappings: { source: any, target: any }[] = [];
+{% endif -%}
+{% for response in operation.Responses -%}
+if (status === {{ response.StatusCode }}{% if response.CheckChunkedStatusCode %} || status === 206{% endif %}) {
+    {% template Client.ProcessResponse.HandleStatusCode %}
+} else {% endfor -%}
+if (status === 404) {
+    return throwException("NotFound: " + response.config.url, status, response.data, _headers, null);
+}
+else {% if operation.HasDefaultResponse -%}
+{
+{%-     assign response = operation.DefaultResponse -%}
+    {% template Client.ProcessResponse.HandleStatusCode %}
+}
+{%- else %}if (status !== 200 && status !== 204) {
+    {% template Client.ProcessResponse.ReadBodyStart %}
+    return throwException({% if Framework.IsAngularJS %}this.q, {% endif %}"An unexpected server error occurred.", status, _responseText, _headers);
+    {% template Client.ProcessResponse.ReadBodyEnd %}
+}
+{% template Client.ProcessResponse.Return -%}
+{% endif -%}

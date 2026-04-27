@@ -1,0 +1,53 @@
+{
+    "name": "@hwndmaster/atom-react-prime",
+    "version": "0.1.0",
+    "description": "PrimeReact-based shared components — ToastService, ToastProvider, form components",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "lint": "eslint ."
+    },
+    "dependencies": {
+        "@hwndmaster/atom-web-core": "workspace:*",
+        "@hwndmaster/atom-react-core": "workspace:*"
+    },
+    "peerDependencies": {
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0",
+        "react-hook-form": ">=7.0.0",
+        "primereact": ">=10.0.0"
+    },
+    "devDependencies": {
+        "@hwndmaster/atom-eslint-common": "workspace:*",
+        "@hwndmaster/atom-eslint-react": "workspace:*",
+        "@hwndmaster/atom-eslint-stylistic": "workspace:*",
+        "eslint": "catalog:",
+        "@hwndmaster/atom-web-core": "workspace:*",
+        "@hwndmaster/atom-react-core": "workspace:*",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "react-hook-form": "catalog:",
+        "primereact": "catalog:",
+        "sass": "catalog:",
+        "tsup": "catalog:",
+        "typescript": "catalog:"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
+    }
+}

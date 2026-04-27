@@ -1,0 +1,68 @@
+{
+    "name": "@hwndmaster/atom-react-core",
+    "version": "0.1.0",
+    "description": "Shared React components and utilities — CircularProgress, LoadingSpinner, validation refs, route utilities",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        },
+        "./styles.css": "./dist/index.css"
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "lint": "eslint .",
+        "test": "vitest run --passWithNoTests",
+        "test:coverage": "vitest run --coverage"
+    },
+    "dependencies": {
+        "@hwndmaster/atom-web-core": "workspace:*"
+    },
+    "peerDependencies": {
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0",
+        "react-hook-form": ">=7.0.0",
+        "react-redux": ">=8.0.0",
+        "@reduxjs/toolkit": ">=2.0.0",
+        "react-router-dom": ">=6.0.0",
+        "zod": ">=3.0.0"
+    },
+    "devDependencies": {
+        "@hwndmaster/atom-eslint-common": "workspace:*",
+        "@hwndmaster/atom-eslint-react": "workspace:*",
+        "@hwndmaster/atom-eslint-stylistic": "workspace:*",
+        "@hwndmaster/atom-react-redux": "workspace:*",
+        "@hwndmaster/atom-testing-utils": "workspace:*",
+        "eslint": "catalog:",
+        "@hwndmaster/atom-web-core": "workspace:*",
+        "@testing-library/jest-dom": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@vitejs/plugin-react": "catalog:",
+        "@vitest/coverage-v8": "catalog:",
+        "jsdom": "catalog:",
+        "vitest": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "react-hook-form": "catalog:",
+        "react-redux": "catalog:",
+        "@reduxjs/toolkit": "catalog:",
+        "react-router-dom": "catalog:",
+        "zod": "catalog:",
+        "sass": "catalog:",
+        "tsup": "catalog:",
+        "typescript": "catalog:"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
+    }
+}

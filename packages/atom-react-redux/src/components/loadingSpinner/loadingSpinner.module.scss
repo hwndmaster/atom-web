@@ -1,0 +1,30 @@
+$z-index-spinner: 9000000;
+
+.loadingSpinnerContainer {
+  position: relative;
+
+  &[data-loading="true"] {
+    /* Use a CSS custom property so consuming projects can theme the overlay color.
+       Set --atom-color-bg-overlay in your app's :root or a parent element. */
+    background: var(--atom-color-bg-overlay, rgba(255, 255, 255, 0.5));
+
+    > .loadingSpinner {
+      display: block;
+    }
+
+    > .loadingSpinnerContent {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+}
+
+.loadingSpinner {
+  position: absolute;
+  left: calc(50% - 20px);
+  top: 0;
+  bottom: 0;
+  display: none;
+  align-content: center;
+  z-index: $z-index-spinner;
+}

@@ -1,0 +1,3 @@
+{% if parameter.Schema.AdditionalPropertiesSchema.Format and parameter.Schema.AdditionalPropertiesSchema.Format != empty
+    %}{{ parameter.Schema.AdditionalPropertiesSchema.Format }}{%
+    else %}{{ parameter.Type }}{{ parameter.TypePostfix }}{% endif %}

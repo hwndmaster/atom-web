@@ -1,0 +1,40 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"**/dist": true,
+			"**/node_modules": true,
+		},
+		"commands.workspaceCommands": {
+			"Atom-web": {
+				"nestedItems": {
+					"Install": {
+						"command": "commands.runInTerminal",
+						"args": {
+							"text": "pnpm install"
+						},
+						"icon": "debug-restart",
+						"iconColor": "errorForeground"
+					},
+					"Build": {
+						"command": "commands.runInTerminal",
+						"args": {
+							"text": "pnpm build"
+						},
+						"icon": "runtime-extensions-editor-label-icon",
+						"iconColor": "textLink.activeForeground"
+					}
+				}
+			}
+		},
+		"cSpell.words": [
+			"hwndmaster",
+			"persistor"
+		]
+	}
+}

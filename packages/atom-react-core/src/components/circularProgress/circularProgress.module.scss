@@ -1,0 +1,34 @@
+.circular-progress {
+    display: inline-block;
+    animation: circular-progress-rotate 1.4s linear infinite;
+}
+
+.circular-progress svg {
+    display: block;
+}
+
+.circular-progress-circle {
+    stroke-linecap: round;
+    animation: circular-progress-dash 1.4s ease-in-out infinite;
+}
+
+@keyframes circular-progress-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes circular-progress-dash {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dashoffset: -35px;
+    }
+    100% {
+        stroke-dashoffset: -124px;
+    }
+}

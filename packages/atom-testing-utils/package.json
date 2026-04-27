@@ -1,0 +1,65 @@
+{
+    "name": "@hwndmaster/atom-testing-utils",
+    "version": "0.1.0",
+    "description": "Test utilities — SagaRunner, FakeRouter, FakeAxios, FakeLogger, renderWithProviders, createFakeStore",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "lint": "eslint ."
+    },
+    "dependencies": {
+        "@hwndmaster/atom-react-redux": "workspace:*"
+    },
+    "peerDependencies": {
+        "@hwndmaster/atom-web-core": "*",
+        "axios": ">=1.0.0",
+        "axios-mock-adapter": ">=1.0.0",
+        "history": ">=5.0.0",
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0",
+        "react-redux": ">=8.0.0",
+        "react-router-dom": ">=6.0.0",
+        "redux-saga": ">=1.0.0",
+        "vitest": ">=2.0.0",
+        "@testing-library/react": ">=16.0.0"
+    },
+    "devDependencies": {
+        "@hwndmaster/atom-eslint-common": "workspace:*",
+        "@hwndmaster/atom-eslint-react": "workspace:*",
+        "@hwndmaster/atom-eslint-stylistic": "workspace:*",
+        "eslint": "catalog:",
+        "@hwndmaster/atom-web-core": "workspace:*",
+        "@hwndmaster/atom-react-redux": "workspace:*",
+        "@reduxjs/toolkit": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "axios": "catalog:",
+        "axios-mock-adapter": "catalog:",
+        "history": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "react-redux": "catalog:",
+        "react-router-dom": "catalog:",
+        "redux-saga": "catalog:",
+        "vitest": "catalog:",
+        "tsup": "catalog:",
+        "typescript": "catalog:"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
+    }
+}

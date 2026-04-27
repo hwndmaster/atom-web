@@ -1,0 +1,33 @@
+{
+    "name": "@hwndmaster/atom-web-core",
+    "version": "0.1.0",
+    "description": "Core TypeScript utilities — logger, errorInfo, entityId, helpers, loadingTargets",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "lint": "eslint ."
+    },
+    "devDependencies": {
+        "@hwndmaster/atom-eslint-common": "workspace:*",
+        "@hwndmaster/atom-eslint-stylistic": "workspace:*",
+        "eslint": "catalog:",
+        "tsup": "catalog:",
+        "typescript": "catalog:"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
+    }
+}
