@@ -4,7 +4,7 @@
     "private": true,
     "description": "pnpm monorepo for shared TypeScript/React/Redux packages",
     "scripts": {
-        "build": "pnpm -r build",
+        "build": "pnpm -r --workspace-concurrency=1 build",
         "test": "pnpm -r test",
         "lint": "pnpm -r lint",
         "changeset": "changeset",

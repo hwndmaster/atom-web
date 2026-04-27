@@ -210,12 +210,6 @@ importers:
       '@hwndmaster/atom-eslint-stylistic':
         specifier: workspace:*
         version: link:../atom-eslint-stylistic
-      '@hwndmaster/atom-react-redux':
-        specifier: workspace:*
-        version: link:../atom-react-redux
-      '@hwndmaster/atom-testing-utils':
-        specifier: workspace:*
-        version: link:../atom-testing-utils
       '@reduxjs/toolkit':
         specifier: 'catalog:'
         version: 2.11.2(react-redux@9.2.0(@types/react@19.2.14)(react@19.2.5)(redux@5.0.1))(react@19.2.5)

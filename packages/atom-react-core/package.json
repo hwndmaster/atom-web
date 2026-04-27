@@ -38,8 +38,6 @@
         "@hwndmaster/atom-eslint-common": "workspace:*",
         "@hwndmaster/atom-eslint-react": "workspace:*",
         "@hwndmaster/atom-eslint-stylistic": "workspace:*",
-        "@hwndmaster/atom-react-redux": "workspace:*",
-        "@hwndmaster/atom-testing-utils": "workspace:*",
         "eslint": "catalog:",
         "@hwndmaster/atom-web-core": "workspace:*",
         "@testing-library/jest-dom": "catalog:",
