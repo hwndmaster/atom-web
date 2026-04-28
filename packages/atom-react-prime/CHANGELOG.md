@@ -1,5 +1,11 @@
 # @hwndmaster/atom-react-prime
 
+## 0.1.4
+
+### Patch Changes
+
+- FormInputNumber fixes (2)
+
 ## 0.1.3
 
 ### Patch Changes
