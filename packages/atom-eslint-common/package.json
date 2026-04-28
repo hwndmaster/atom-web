@@ -1,24 +1,26 @@
 {
     "name": "@hwndmaster/atom-eslint-common",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Shared ESLint flat config — TypeScript, JSDoc, import-x rules",
     "type": "module",
     "main": "./index.js",
     "exports": {
         ".": "./index.js"
     },
-    "files": ["index.js"],
+    "files": [
+        "index.js"
+    ],
     "scripts": {
         "build": "echo 'No build step for atom-eslint-common'"
     },
     "dependencies": {
-        "@typescript-eslint/eslint-plugin": "^8.58.2",
-        "@typescript-eslint/parser": "^8.58.2",
-        "eslint-import-resolver-typescript": "^4.4.4",
-        "eslint-plugin-import-x": "^4.16.2",
-        "eslint-plugin-jsdoc": "^62.9.0",
-        "eslint-plugin-testing-library": "^7.16.2",
-        "globals": "^17.5.0"
+        "@typescript-eslint/eslint-plugin": "catalog:",
+        "@typescript-eslint/parser": "catalog:",
+        "eslint-import-resolver-typescript": "catalog:",
+        "eslint-plugin-import-x": "catalog:",
+        "eslint-plugin-jsdoc": "catalog:",
+        "eslint-plugin-testing-library": "catalog:",
+        "globals": "catalog:"
     },
     "peerDependencies": {
         "eslint": ">=9.0.0"

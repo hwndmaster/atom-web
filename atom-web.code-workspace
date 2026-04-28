@@ -35,6 +35,9 @@
 		"cSpell.words": [
 			"hwndmaster",
 			"persistor"
-		]
+		],
+		"chat.tools.terminal.autoApprove": {
+			"pnpm": true
+		}
 	}
 }

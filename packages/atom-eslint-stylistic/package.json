@@ -1,19 +1,21 @@
 {
     "name": "@hwndmaster/atom-eslint-stylistic",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Shared ESLint flat config — stylistic rules (indent, quotes, naming-convention)",
     "type": "module",
     "main": "./index.js",
     "exports": {
         ".": "./index.js"
     },
-    "files": ["index.js"],
+    "files": [
+        "index.js"
+    ],
     "scripts": {
         "build": "echo 'No build step for atom-eslint-stylistic'"
     },
     "dependencies": {
         "@hwndmaster/atom-eslint-common": "workspace:*",
-        "@stylistic/eslint-plugin": "^5.10.0"
+        "@stylistic/eslint-plugin": "catalog:"
     },
     "peerDependencies": {
         "eslint": ">=9.0.0"

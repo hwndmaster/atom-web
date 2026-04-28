@@ -10,8 +10,8 @@ import type { EntityGuidId, EntityIntId } from "@hwndmaster/atom-web-core";
  *     productRef: requiredRef<ProductRef>(),
  * });
  */
-export const requiredIntRef = <T extends EntityIntId<string>>(message?: string): z.ZodType<T> =>
-    z.number({ message }).int().positive({ message }) as unknown as z.ZodType<T>;
+export const requiredIntRef = <T extends EntityIntId<string>>(message?: string): z.ZodType<T, T> =>
+    z.number({ message }).int().positive({ message }) as unknown as z.ZodType<T, T>;
 
 /**
  * Zod schema for an optional reference field of any numeric entity ID type.
@@ -22,8 +22,8 @@ export const requiredIntRef = <T extends EntityIntId<string>>(message?: string):
  *     productRef: optionalRef<ProductRef>(),
  * });
  */
-export const optionalIntRef = <T extends EntityIntId<string>>(): z.ZodType<T | undefined> =>
-    z.number().int().positive().optional() as unknown as z.ZodType<T | undefined>;
+export const optionalIntRef = <T extends EntityIntId<string>>(): z.ZodType<T | undefined, T | undefined> =>
+    z.number().int().positive().optional() as unknown as z.ZodType<T | undefined, T | undefined>;
 
 /**
  * Zod schema for a required reference field of any Guid-based type.
@@ -36,11 +36,11 @@ export const optionalIntRef = <T extends EntityIntId<string>>(): z.ZodType<T | u
  */
 export const requiredGuidRef = <T extends EntityGuidId<string>>(
     customMessage: string | undefined = undefined
-): z.ZodType<T> =>
+): z.ZodType<T, T> =>
     z.string()
         .min(1, {
             message: customMessage ?? "A selection must be made to proceed",
-        }) as unknown as z.ZodType<T>;
+        }) as unknown as z.ZodType<T, T>;
 
 /**
  * Zod schema for an optional reference field of any Guid-based type.
@@ -51,6 +51,6 @@ export const requiredGuidRef = <T extends EntityGuidId<string>>(
  *     dataSetRef: optionalRef<DataSetRef>(),
  * });
  */
-export const optionalGuidRef = <T extends EntityGuidId<string>>(): z.ZodType<T | undefined> =>
+export const optionalGuidRef = <T extends EntityGuidId<string>>(): z.ZodType<T | undefined, T | undefined> =>
     z.string()
-        .optional() as unknown as z.ZodType<T | undefined>;
+        .optional() as unknown as z.ZodType<T | undefined, T | undefined>;

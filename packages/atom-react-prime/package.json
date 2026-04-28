@@ -1,6 +1,6 @@
 {
     "name": "@hwndmaster/atom-react-prime",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "description": "PrimeReact-based shared components — ToastService, ToastProvider, form components",
     "type": "module",
     "exports": {
@@ -13,7 +13,9 @@
     "main": "./dist/index.cjs",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "tsup",
         "dev": "tsup --watch",
