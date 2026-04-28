@@ -20,6 +20,7 @@ export const FormInputNumber = <TFieldValues extends FieldValues>({
     allowDecimals = false
 }: FormInputNumberProps<TFieldValues>): React.ReactElement => {
     const error = form.formState.errors[name];
+    const maxFractionDigits = allowDecimals ? 4 : 0;
 
     return (
         <div className={className ?? styles.fieldWrapper}>
@@ -35,8 +36,8 @@ export const FormInputNumber = <TFieldValues extends FieldValues>({
                             onValueChange={(e) => field.onChange(e.value)}
                             onBlur={field.onBlur}
                             useGrouping={false}
-                            minFractionDigits={allowDecimals ? undefined : 0}
-                            maxFractionDigits={allowDecimals ? undefined : 0}
+                            minFractionDigits={0}
+                            maxFractionDigits={maxFractionDigits}
                         />
                     )}
                 />
