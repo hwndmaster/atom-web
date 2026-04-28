@@ -106,6 +106,17 @@ pnpm --filter @hwndmaster/atom-testing-utils test
 
 ---
 
+### Package update
+
+- Check for outdated packages
+  ```bash
+  pnpm outdated
+  ```
+- Selectively bump versions
+  ```bash
+  pnpm update --interactive
+  ```
+
 ## Creating a new version and releasing
 
 ### Step 1 — add a changeset

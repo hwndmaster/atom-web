@@ -13,10 +13,10 @@
     },
     "dependencies": {
         "@hwndmaster/atom-eslint-common": "workspace:*",
-        "eslint-plugin-react": "^7.37.5",
-        "eslint-plugin-react-hooks": "^7.1.1",
-        "@vitest/eslint-plugin": "^1.6.16",
-        "globals": "^17.5.0"
+        "eslint-plugin-react": "catalog:",
+        "eslint-plugin-react-hooks": "catalog:",
+        "@vitest/eslint-plugin": "catalog:",
+        "globals": "catalog:"
     },
     "peerDependencies": {
         "eslint": ">=9.0.0"
