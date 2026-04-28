@@ -77,11 +77,11 @@ export const commonConfig = [
             "@typescript-eslint/no-unnecessary-parameter-property-assignment": "error",
             "@typescript-eslint/no-unnecessary-template-expression": "error",
             "@typescript-eslint/no-unnecessary-type-constraint": "error",
-            "@typescript-eslint/no-unsafe-argument": "warn", // TODO: Currently cannot mark as `error` due to usage of "fetch to `any`" in several files.
-            "@typescript-eslint/no-unsafe-assignment": "off", // TODO: Currently cannot mark as `error` due to issues with redux-saga.
-            "@typescript-eslint/no-unsafe-call": "off", // TODO: Currently cannot mark as `error` due to issues with redux-saga.
+            "@typescript-eslint/no-unsafe-argument": "error",
+            "@typescript-eslint/no-unsafe-assignment": "error",
+            "@typescript-eslint/no-unsafe-call": "error",
             "@typescript-eslint/no-unsafe-enum-comparison": "error",
-            "@typescript-eslint/no-unsafe-member-access": "off", // TODO: Currently cannot mark as `error` due to issues with redux-saga.
+            "@typescript-eslint/no-unsafe-member-access": "error",
             "@typescript-eslint/no-unused-vars": ["error", {
                 "argsIgnorePattern": "^_",
                 "varsIgnorePattern": "^_"
@@ -186,8 +186,7 @@ export const testingConfig = [
                     testIdAttribute: "data-testid"
                 }
             ],
-            // TODO: This rule is currently not supported with ESLint v9+. Uncomment after upgrading `eslint-plugin-testing-library`
-            //"testing-library/no-debugging-utils": "error",
+            "testing-library/no-debugging-utils": "error",
             "testing-library/no-dom-import": "error",
         }
     }

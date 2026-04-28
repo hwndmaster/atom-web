@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@hwndmaster/atom-eslint-common": "workspace:*",
-        "@stylistic/eslint-plugin": "^5.10.0"
+        "@stylistic/eslint-plugin": "catalog:"
     },
     "peerDependencies": {
         "eslint": ">=9.0.0"
