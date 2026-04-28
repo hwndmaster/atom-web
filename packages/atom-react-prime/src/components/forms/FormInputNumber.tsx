@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller, FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 import { FloatLabel } from "primereact/floatlabel";
-import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 import styles from "./forms.module.scss";
 
 interface FormInputNumberProps<TFieldValues extends FieldValues> {
@@ -28,19 +28,15 @@ export const FormInputNumber = <TFieldValues extends FieldValues>({
                     name={name}
                     control={form.control}
                     render={({ field }) => (
-                        <InputText
+                        <InputNumber
                             id={name}
-                            type="number"
-                            value={field.value?.toString() ?? ""}
-                            onChange={(e) => {
-                                const value = e.target.value;
-                                if (value === "") {
-                                    field.onChange(undefined);
-                                } else {
-                                    field.onChange(allowDecimals ? parseFloat(value) : parseInt(value));
-                                }
-                            }}
+                            inputId={name}
+                            value={typeof field.value === "number" ? field.value : null}
+                            onValueChange={(e) => field.onChange(e.value)}
                             onBlur={field.onBlur}
+                            useGrouping={false}
+                            minFractionDigits={allowDecimals ? undefined : 0}
+                            maxFractionDigits={allowDecimals ? undefined : 0}
                         />
                     )}
                 />
