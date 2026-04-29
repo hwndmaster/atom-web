@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 1.5rem;
     max-width: 1200px;
+    width: 100%;
 }
 
 .row {
@@ -23,8 +24,26 @@
     flex-direction: column;
     gap: 0.5rem;
     padding-top: 0.5rem;
+    min-width: 0;
+
+    > label {
+        display: block;
+    }
+
+    :global(.p-float-label),
+    :global(.p-floatlabel) {
+        width: 100%;
+    }
 
     :global(.p-inputtext) {
+        width: 100%;
+    }
+
+    :global(.p-inputtextarea) {
+        width: 100%;
+    }
+
+    :global(.p-dropdown) {
         width: 100%;
     }
 

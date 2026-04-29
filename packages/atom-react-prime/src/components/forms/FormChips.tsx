@@ -2,13 +2,14 @@ import React from "react";
 import { Controller, FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 import { Chips } from "primereact/chips";
 import type { ChipsProps } from "primereact/chips";
+import type { DataTestIdProp, WithDataTestId } from "./formDataTestIdProps";
 import styles from "./forms.module.scss";
 
-interface FormChipsProps<TFieldValues extends FieldValues> {
+interface FormChipsProps<TFieldValues extends FieldValues> extends DataTestIdProp {
     name: FieldPath<TFieldValues>;
     form: UseFormReturn<TFieldValues>;
     label: string;
-    inputProps?: Omit<ChipsProps, "id" | "value" | "onChange" | "onBlur">;
+    inputProps?: WithDataTestId<Omit<ChipsProps, "id" | "value" | "onChange" | "onBlur">>;
     className?: string;
 }
 
@@ -17,7 +18,8 @@ export const FormChips = <TFieldValues extends FieldValues>({
     form,
     label,
     inputProps,
-    className
+    className,
+    "data-test_id": dataTestId
 }: FormChipsProps<TFieldValues>): React.ReactElement => {
     const error = form.formState.errors[name];
 
@@ -33,6 +35,7 @@ export const FormChips = <TFieldValues extends FieldValues>({
                         value={field.value ?? []}
                         onChange={(e) => field.onChange(e.value ?? [])}
                         {...inputProps}
+                        data-test_id={dataTestId}
                     />
                 )}
             />

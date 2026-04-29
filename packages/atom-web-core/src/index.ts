@@ -4,7 +4,8 @@ export type { Logger, DefaultLogger } from "./logger";
 export type { RaiseErrorInfo, ErrorInfo, ValidationError, HasToastedError } from "./errorInfo";
 
 export type { EntityIntId, EntityGuidId } from "./entityId";
-export { createIntRefConverter, createGuidRefConverter } from "./createRefConverter";
+export type { IntRefConverter, GuidRefConverter } from "./createRefConverter";
+export { createIntRefConverter, createGuidRefConverter, parseRef } from "./createRefConverter";
 
 export { isDev, isProd, isTest } from "./constants";
 

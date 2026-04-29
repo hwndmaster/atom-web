@@ -3,16 +3,17 @@ import { Controller, FieldPath, FieldValues, UseFormReturn } from "react-hook-fo
 import { Dropdown } from "primereact/dropdown";
 import type { DropdownProps } from "primereact/dropdown";
 import { FloatLabel } from "primereact/floatlabel";
+import type { DataTestIdProp, WithDataTestId } from "./formDataTestIdProps";
 import styles from "./forms.module.scss";
 
-interface FormDropdownProps<TFieldValues extends FieldValues, TOptionValue = unknown> {
+interface FormDropdownProps<TFieldValues extends FieldValues, TOptionValue = unknown> extends DataTestIdProp {
     name: FieldPath<TFieldValues>;
     form: UseFormReturn<TFieldValues>;
     label: string;
     options: TOptionValue[];
     optionLabel?: string;
     optionValue?: string;
-    inputProps?: Omit<DropdownProps, "id" | "value" | "onChange" | "onBlur" | "options" | "optionLabel" | "optionValue">;
+    inputProps?: WithDataTestId<Omit<DropdownProps, "id" | "value" | "onChange" | "onBlur" | "options" | "optionLabel" | "optionValue">>;
     className?: string;
     onValueChange?: (value: unknown) => void;
 }
@@ -26,7 +27,8 @@ export const FormDropdown = <TFieldValues extends FieldValues, TOptionValue = un
     optionValue,
     inputProps,
     className,
-    onValueChange
+    onValueChange,
+    "data-test_id": dataTestId
 }: FormDropdownProps<TFieldValues, TOptionValue>): React.ReactElement => {
     const error = form.formState.errors[name];
 
@@ -48,6 +50,7 @@ export const FormDropdown = <TFieldValues extends FieldValues, TOptionValue = un
                             optionLabel={optionLabel}
                             optionValue={optionValue}
                             {...inputProps}
+                            data-test_id={dataTestId}
                         />
                     )}
                 />

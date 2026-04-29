@@ -1,6 +1,6 @@
 {
     "name": "@hwndmaster/atom-react-core",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "description": "Shared React components and utilities — CircularProgress, LoadingSpinner, validation refs, route utilities",
     "type": "module",
     "exports": {

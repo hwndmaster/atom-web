@@ -2,14 +2,17 @@ import React from "react";
 import { Controller, FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 import { FloatLabel } from "primereact/floatlabel";
 import { InputNumber } from "primereact/inputnumber";
+import type { InputNumberProps } from "primereact/inputnumber";
+import type { DataTestIdProp, WithDataTestId } from "./formDataTestIdProps";
 import styles from "./forms.module.scss";
 
-interface FormInputNumberProps<TFieldValues extends FieldValues> {
+interface FormInputNumberProps<TFieldValues extends FieldValues> extends DataTestIdProp {
     name: FieldPath<TFieldValues>;
     form: UseFormReturn<TFieldValues>;
     label: string;
     className?: string;
     allowDecimals?: boolean;
+    inputProps?: WithDataTestId<Omit<InputNumberProps, "id" | "inputId" | "value" | "onValueChange" | "onBlur">>;
 }
 
 export const FormInputNumber = <TFieldValues extends FieldValues>({
@@ -17,7 +20,9 @@ export const FormInputNumber = <TFieldValues extends FieldValues>({
     form,
     label,
     className,
-    allowDecimals = false
+    allowDecimals = false,
+    inputProps,
+    "data-test_id": dataTestId
 }: FormInputNumberProps<TFieldValues>): React.ReactElement => {
     const error = form.formState.errors[name];
     const maxFractionDigits = allowDecimals ? 4 : 0;
@@ -38,6 +43,8 @@ export const FormInputNumber = <TFieldValues extends FieldValues>({
                             useGrouping={false}
                             minFractionDigits={0}
                             maxFractionDigits={maxFractionDigits}
+                            {...inputProps}
+                            data-test_id={dataTestId}
                         />
                     )}
                 />

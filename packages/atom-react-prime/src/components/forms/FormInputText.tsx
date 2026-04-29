@@ -3,13 +3,14 @@ import { Controller, FieldPath, FieldValues, UseFormReturn } from "react-hook-fo
 import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import type { InputTextProps } from "primereact/inputtext";
+import type { DataTestIdProp, WithDataTestId } from "./formDataTestIdProps";
 import styles from "./forms.module.scss";
 
-interface FormInputTextProps<TFieldValues extends FieldValues> {
+interface FormInputTextProps<TFieldValues extends FieldValues> extends DataTestIdProp {
     name: FieldPath<TFieldValues>;
     form: UseFormReturn<TFieldValues>;
     label: string;
-    inputProps?: Omit<InputTextProps, "id" | "value" | "onChange" | "onBlur">;
+    inputProps?: WithDataTestId<Omit<InputTextProps, "id" | "value" | "onChange" | "onBlur">>;
     onBlur?: (value: string) => void;
     className?: string;
     disableFloatingLabel?: boolean;
@@ -22,7 +23,8 @@ export const FormInputText = <TFieldValues extends FieldValues>({
     inputProps,
     onBlur,
     className,
-    disableFloatingLabel
+    disableFloatingLabel,
+    "data-test_id": dataTestId
 }: FormInputTextProps<TFieldValues>): React.ReactElement => {
     const error = form.formState.errors[name];
 
@@ -43,6 +45,7 @@ export const FormInputText = <TFieldValues extends FieldValues>({
                             }}
                             className={disableFloatingLabel === true ? "no-float" : ""}
                             {...inputProps}
+                            data-test_id={dataTestId}
                         />
                     )}
                 />

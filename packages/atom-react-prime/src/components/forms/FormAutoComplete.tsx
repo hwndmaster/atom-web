@@ -3,15 +3,16 @@ import { Controller, FieldPath, FieldValues, UseFormReturn } from "react-hook-fo
 import { AutoComplete } from "primereact/autocomplete";
 import type { AutoCompleteProps } from "primereact/autocomplete";
 import { FloatLabel } from "primereact/floatlabel";
+import type { DataTestIdProp, WithDataTestId } from "./formDataTestIdProps";
 import styles from "./forms.module.scss";
 
-interface FormAutoCompleteProps<TFieldValues extends FieldValues> {
+interface FormAutoCompleteProps<TFieldValues extends FieldValues> extends DataTestIdProp {
     name: FieldPath<TFieldValues>;
     form: UseFormReturn<TFieldValues>;
     label: string;
     suggestions: string[];
     completeMethod: (event: { query: string }) => void;
-    inputProps?: Omit<AutoCompleteProps, "id" | "value" | "onChange" | "onBlur" | "suggestions" | "completeMethod">;
+    inputProps?: WithDataTestId<Omit<AutoCompleteProps, "id" | "value" | "onChange" | "onBlur" | "suggestions" | "completeMethod">>;
     className?: string;
     renderPrefix?: (value: string | undefined) => React.ReactNode;
 }
@@ -24,7 +25,8 @@ export const FormAutoComplete = <TFieldValues extends FieldValues>({
     completeMethod,
     inputProps,
     className,
-    renderPrefix
+    renderPrefix,
+    "data-test_id": dataTestId
 }: FormAutoCompleteProps<TFieldValues>): React.ReactElement => {
     const error = form.formState.errors[name];
 
@@ -46,6 +48,7 @@ export const FormAutoComplete = <TFieldValues extends FieldValues>({
                                 forceSelection={false}
                                 dropdown
                                 {...inputProps}
+                                data-test_id={dataTestId}
                                 className={renderPrefix != undefined ? styles.inputWithPrefixControl : undefined}
                             />
                         </div>

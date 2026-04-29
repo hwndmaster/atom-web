@@ -9,7 +9,12 @@ export default defineConfig({
     clean: true,
     splitting: false,
     injectStyle: true,
-    esbuildPlugins: [sassPlugin({ type: "css" })],
+    esbuildPlugins: [
+        // Compile SCSS modules with esbuild local-css loader so class mappings are emitted.
+        sassPlugin({ filter: /\.module\.scss$/, type: "local-css" }),
+        // Compile non-module SCSS into regular CSS output.
+        sassPlugin({ filter: /\.scss$/, type: "css" }),
+    ],
     external: [
         "react",
         "react-dom",
