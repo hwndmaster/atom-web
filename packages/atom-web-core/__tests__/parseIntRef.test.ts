@@ -89,4 +89,30 @@ describe("parseIntRef", () => {
         expect(result).toBe(123);
         expect(calls).toEqual([123]);
     });
+
+    test("Given unknown containing a numeric string Then parses and converts", () => {
+        // Arrange
+        const { refFunc, calls } = createRefFuncSpy();
+        const value: unknown = "77";
+
+        // Act
+        const result = parseIntRef(value, refFunc);
+
+        // Verify
+        expect(result).toBe(77);
+        expect(calls).toEqual([77]);
+    });
+
+    test("Given unknown non-string non-number Then returns null", () => {
+        // Arrange
+        const { refFunc, calls } = createRefFuncSpy();
+        const value: unknown = { id: 10 };
+
+        // Act
+        const result = parseIntRef(value, refFunc);
+
+        // Verify
+        expect(result).toBeNull();
+        expect(calls).toEqual([]);
+    });
 });

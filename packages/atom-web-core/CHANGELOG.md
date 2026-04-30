@@ -1,5 +1,11 @@
 # @hwndmaster/atom-web-core
 
+## 0.1.4
+
+### Patch Changes
+
+- parseIntRef to support unknown type
+
 ## 0.1.3
 
 ### Patch Changes

@@ -3,9 +3,9 @@ import type { EntityIntId } from "./entityId";
 
 /**
  * Parses a value into an entity reference using the provided ref converter.
- * If the value is null, empty, or cannot be parsed into a valid number, null is returned.
+ * If the value is null, not a string/number, empty, or cannot be parsed into a valid number, null is returned.
  */
-function parseIntRef<TRef extends EntityIntId<string | undefined>>(value: string | number | undefined, refFunc: IntRefConverter<TRef>): TRef | null {
+function parseIntRef<TRef extends EntityIntId<string | undefined>>(value: unknown, refFunc: IntRefConverter<TRef>): TRef | null {
     if (value == null) {
         return null;
     }
@@ -16,6 +16,10 @@ function parseIntRef<TRef extends EntityIntId<string | undefined>>(value: string
         }
 
         return refFunc(value);
+    }
+
+    if (typeof value !== "string") {
+        return null;
     }
 
     if (value.trim() === "") {
