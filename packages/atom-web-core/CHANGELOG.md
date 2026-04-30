@@ -1,5 +1,11 @@
 # @hwndmaster/atom-web-core
 
+## 0.1.2
+
+### Patch Changes
+
+- parseRef improvement + unit tests
+
 ## 0.1.1
 
 ### Patch Changes

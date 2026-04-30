@@ -1,5 +1,13 @@
 # @hwndmaster/atom-testing-utils
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies
+  - @hwndmaster/atom-react-redux@0.1.4
+  - @hwndmaster/atom-web-core@0.1.2
+
 ## 0.1.3
 
 ### Patch Changes

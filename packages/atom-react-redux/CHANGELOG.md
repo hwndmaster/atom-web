@@ -1,5 +1,15 @@
 # @hwndmaster/atom-react-redux
 
+## 0.1.4
+
+### Patch Changes
+
+- parseRef improvement + unit tests
+- Updated dependencies
+  - @hwndmaster/atom-react-core@0.1.5
+  - @hwndmaster/atom-web-core@0.1.2
+  - @hwndmaster/atom-api-core@0.1.2
+
 ## 0.1.3
 
 ### Patch Changes

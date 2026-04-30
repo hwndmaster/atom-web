@@ -1,6 +1,6 @@
 {
     "name": "@hwndmaster/atom-react-prime",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "description": "PrimeReact-based shared components — ToastService, ToastProvider, form components",
     "type": "module",
     "exports": {

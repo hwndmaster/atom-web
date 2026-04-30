@@ -1,5 +1,13 @@
 # @hwndmaster/atom-react-core
 
+## 0.1.5
+
+### Patch Changes
+
+- parseRef improvement + unit tests
+- Updated dependencies
+  - @hwndmaster/atom-web-core@0.1.2
+
 ## 0.1.4
 
 ### Patch Changes
