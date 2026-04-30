@@ -22,7 +22,7 @@ export * as Common from "./common";
 export type { default as CommonState } from "./common/state";
 
 // Types
-export type { SagaGenerator } from "./types";
+export type { SagaGenerator, SagaGeneratorReturns } from "./types";
 
 // Components
 export { LoadingSpinner } from "./components/loadingSpinner";

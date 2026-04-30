@@ -16,7 +16,7 @@ export {
     ticksToDate,
     dateToTicks,
     inputDateToTicks,
-} from "./helper";
+} from "./helpers";
 
 export { BaseLoadingTargets } from "./loadingTargets";
 export type { LoadingTarget } from "./loadingTargets";

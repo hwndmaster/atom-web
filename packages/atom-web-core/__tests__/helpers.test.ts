@@ -1,4 +1,4 @@
-import { dateToTicks, getEnumOptions, inputDateToTicks, mapDictionary, ticksToDate } from "../src/helper";
+import { dateToTicks, getEnumOptions, inputDateToTicks, mapDictionary, ticksToDate } from "../src/helpers";
 
 enum TestStatus {
     Pending = 1,

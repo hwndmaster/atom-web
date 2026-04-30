@@ -1,5 +1,15 @@
 # @hwndmaster/atom-react-redux
 
+## 0.1.5
+
+### Patch Changes
+
+- Minor updates
+- Updated dependencies
+  - @hwndmaster/atom-web-core@0.1.3
+  - @hwndmaster/atom-api-core@0.1.3
+  - @hwndmaster/atom-react-core@0.1.6
+
 ## 0.1.4
 
 ### Patch Changes
