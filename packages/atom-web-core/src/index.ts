@@ -5,7 +5,8 @@ export type { RaiseErrorInfo, ErrorInfo, ValidationError, HasToastedError } from
 
 export type { EntityIntId, EntityGuidId } from "./entityId";
 export type { IntRefConverter, GuidRefConverter } from "./createRefConverter";
-export { createIntRefConverter, createGuidRefConverter, parseRef } from "./createRefConverter";
+export { createIntRefConverter, createGuidRefConverter } from "./createRefConverter";
+export { parseIntRef } from "./parseIntRef";
 
 export { isDev, isProd, isTest } from "./constants";
 

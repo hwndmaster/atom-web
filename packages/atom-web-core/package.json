@@ -19,12 +19,16 @@
     "scripts": {
         "build": "tsup",
         "dev": "tsup --watch",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "test": "vitest run --passWithNoTests",
+        "test:coverage": "vitest run --coverage"
     },
     "devDependencies": {
         "@hwndmaster/atom-eslint-common": "workspace:*",
         "@hwndmaster/atom-eslint-stylistic": "workspace:*",
+        "@vitest/coverage-v8": "catalog:",
         "eslint": "catalog:",
+        "vitest": "catalog:",
         "tsup": "catalog:",
         "typescript": "catalog:"
     },

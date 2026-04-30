@@ -11,8 +11,7 @@ import {
     persistStore,
 } from "redux-persist";
 import { takeLatest, takeEvery, ForkEffect } from "redux-saga/effects";
-import { defaultLogger } from "@hwndmaster/atom-web-core";
-import { isDev } from "@hwndmaster/atom-web-core";
+import { defaultLogger, isDev } from "@hwndmaster/atom-web-core";
 import type { HasToastedError } from "@hwndmaster/atom-web-core";
 import * as common from "./common";
 

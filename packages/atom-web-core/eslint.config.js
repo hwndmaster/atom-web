@@ -6,7 +6,7 @@ export default [
     ...commonConfig,
     ...stylisticConfig,
     {
-        files: ["src/**/*.ts"],
+        files: ["**/*.ts"],
         languageOptions: {
             parserOptions: {
                 project: "./tsconfig.eslint.json",
