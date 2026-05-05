@@ -1,5 +1,13 @@
 # @hwndmaster/atom-react-redux
 
+## 0.1.7
+
+### Patch Changes
+
+- API calls handling with validation errors
+- Updated dependencies
+  - @hwndmaster/atom-react-core@0.1.8
+
 ## 0.1.6
 
 ### Patch Changes

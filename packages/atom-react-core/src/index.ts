@@ -4,6 +4,8 @@ export { default as CircularProgress } from "./components/circularProgress/Circu
 // Form
 export { useAtomForm } from "./form/useAtomForm";
 export type { AtomFormReturn } from "./form/useAtomForm";
+export { translateErrorsToForm } from "./form/translateErrorsToForm";
+export type { FormValidationErrors } from "./form/translateErrorsToForm";
 
 // Validation
 export { requiredIntRef, optionalIntRef, requiredGuidRef, optionalGuidRef } from "./validation/referenceSchema";

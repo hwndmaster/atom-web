@@ -1,5 +1,11 @@
 # @hwndmaster/atom-react-core
 
+## 0.1.8
+
+### Patch Changes
+
+- Handling validation errors in forms
+
 ## 0.1.7
 
 ### Patch Changes

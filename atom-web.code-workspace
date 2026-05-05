@@ -28,6 +28,38 @@
 						},
 						"icon": "runtime-extensions-editor-label-icon",
 						"iconColor": "textLink.activeForeground"
+					},
+					"Test": {
+						"command": "commands.runInTerminal",
+						"args": {
+							"text": "pnpm test"
+						},
+						"icon": "check",
+						"iconColor": "terminal.ansiGreen"
+					},
+					"Lint": {
+						"command": "commands.runInTerminal",
+						"args": {
+							"text": "pnpm lint"
+						},
+						"icon": "error",
+						"iconColor": "terminal.ansiRed"
+					},
+					"Check outdated packages": {
+						"command": "commands.runInTerminal",
+						"args": {
+							"text": "pnpm outdated"
+						},
+						"icon": "versions",
+						"iconColor": "terminal.ansiYellow"
+					},
+					"Update outdated packages": {
+						"command": "commands.runInTerminal",
+						"args": {
+							"text": "pnpm update --interactive"
+						},
+						"icon": "arrow-up",
+						"iconColor": "terminal.ansiYellow"
 					}
 				}
 			}
