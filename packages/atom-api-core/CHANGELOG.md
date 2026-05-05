@@ -1,5 +1,12 @@
 # @hwndmaster/atom-api-core
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @hwndmaster/atom-web-core@0.1.5
+
 ## 0.1.4
 
 ### Patch Changes

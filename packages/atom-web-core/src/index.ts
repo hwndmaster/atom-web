@@ -20,3 +20,6 @@ export {
 
 export { BaseLoadingTargets } from "./loadingTargets";
 export type { LoadingTarget } from "./loadingTargets";
+
+export { setNotificationService, getNotificationService } from "./notifications";
+export type { NotificationService } from "./notifications";

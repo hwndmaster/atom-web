@@ -2,10 +2,6 @@
 export { createAppStore, SagaHandlingType } from "./createAppStore";
 export type { CreateAppStoreOptions, AppStoreSetup, AppStoreType, SagaWatcher } from "./createAppStore";
 
-// Notification service injection (wire up toastService from atom-react-prime)
-export { setNotificationService, getNotificationService } from "./notifications";
-export type { NotificationService } from "./notifications";
-
 // Action extensions
 export { createActionWithMeta, createActionWithMetaValidatable } from "./actionExtensions";
 export type {
@@ -18,8 +14,10 @@ export type {
 } from "./actionExtensions";
 
 // Saga utilities
-export { withLoading, withCallback, withValidatableCallback } from "./utils";
-export type { ValidatableCallbackOptions } from "./utils";
+export { withLoading } from "./withLoading";
+export { withCallback } from "./withCallback";
+export { withValidatableCallback } from "./withValidatableCallback";
+export type { ValidatableCallbackOptions } from "./withValidatableCallback";
 
 // callApi saga builder
 export { callApi } from "./callApi";
@@ -30,7 +28,7 @@ export * as Common from "./common";
 export type { default as CommonState } from "./common/state";
 
 // Types
-export type { SagaGenerator, SagaGeneratorReturns } from "./types";
+export type { SagaGenerator, SagaGeneratorReturns, SagaFunction } from "./types";
 
 // Components
 export { LoadingSpinner } from "./components/loadingSpinner";

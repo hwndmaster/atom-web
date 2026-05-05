@@ -1,6 +1,6 @@
 {
     "name": "@hwndmaster/atom-react-redux",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "description": "Redux/Saga store factory, callApi builder, common slice, utils — createAppStore, withLoading, withCallback, actionExtensions",
     "type": "module",
     "exports": {

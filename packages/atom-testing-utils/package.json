@@ -1,6 +1,6 @@
 {
     "name": "@hwndmaster/atom-testing-utils",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "description": "Test utilities — SagaRunner, FakeRouter, FakeAxios, FakeLogger, renderWithProviders, createFakeStore",
     "type": "module",
     "exports": {

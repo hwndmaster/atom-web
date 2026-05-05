@@ -1,9 +1,9 @@
 import { AxiosError } from "axios";
 import type { ErrorInfo } from "@hwndmaster/atom-web-core";
+import { setNotificationService } from "@hwndmaster/atom-web-core";
 import { SagaRunner } from "@hwndmaster/atom-testing-utils";
 import * as commonActions from "@/common/actions";
 import { raiseErrorSaga } from "@/common/sagas";
-import { setNotificationService } from "@/notifications";
 
 const errors: { summary: string; detail?: string }[] = [];
 

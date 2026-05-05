@@ -1,10 +1,10 @@
 /**
- * Injectable notification service used by the common saga to show error toasts.
+ * Injectable notification service used by packages to show error toasts.
  * Call setNotificationService(toastService) in your app initialization to wire up toasts.
  *
  * @example
  * // In your app's main.tsx or store setup:
- * import { setNotificationService } from "@hwndmaster/atom-react-redux";
+ * import { setNotificationService } from "@hwndmaster/atom-web-core";
  * import { toastService } from "@hwndmaster/atom-react-prime";
  * setNotificationService(toastService);
  */
@@ -19,7 +19,7 @@ let service: NotificationService = {
 };
 
 /**
- * Configures the notification service used by the common Redux saga for error reporting.
+ * Configures the notification service used for error reporting.
  * @param ns The notification service implementation (e.g. toastService from atom-react-prime).
  */
 function setNotificationService(ns: NotificationService): void {

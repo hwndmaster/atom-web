@@ -1,5 +1,11 @@
 # @hwndmaster/atom-web-core
 
+## 0.1.5
+
+### Patch Changes
+
+- Sort things out
+
 ## 0.1.4
 
 ### Patch Changes

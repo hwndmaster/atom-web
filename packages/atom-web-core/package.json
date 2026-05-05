@@ -1,6 +1,6 @@
 {
     "name": "@hwndmaster/atom-web-core",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Core TypeScript utilities — logger, errorInfo, entityId, helpers, loadingTargets",
     "type": "module",
     "exports": {
