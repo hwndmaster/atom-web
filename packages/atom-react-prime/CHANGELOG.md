@@ -1,5 +1,11 @@
 # @hwndmaster/atom-react-prime
 
+## 0.1.14
+
+### Patch Changes
+
+- FormAutoCompleteMultiple implementation
+
 ## 0.1.13
 
 ### Patch Changes

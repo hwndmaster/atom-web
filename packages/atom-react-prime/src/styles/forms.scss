@@ -56,6 +56,11 @@
     }
 }
 
+.requiredAsterisk {
+    color: var(--p-red-500, #ef4444);
+    margin-left: 0.2rem;
+}
+
 .span2 {
     grid-column: span 2;
 }
