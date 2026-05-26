@@ -1,5 +1,12 @@
 # @hwndmaster/atom-testing-utils
 
+## 0.1.9
+
+### Patch Changes
+
+- Testing utilities
+  - @hwndmaster/atom-react-redux@0.1.8
+
 ## 0.1.8
 
 ### Patch Changes
