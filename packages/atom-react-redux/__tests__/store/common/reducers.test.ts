@@ -57,4 +57,32 @@ describe("commonReducer", () => {
         // Verify
         expect(state.loadingTargets).toEqual({});
     });
+
+    test("Given parametrized targets Then tracks each param independently", () => {
+        // Act
+        let state = commonReducer(undefined, actions.showLoader(100, 7));
+        state = commonReducer(state, actions.showLoader(100, 8));
+
+        // Verify
+        expect(state.loadingTargets["100:7"]).toBe(1);
+        expect(state.loadingTargets["100:8"]).toBe(1);
+        expect(state.loadingTargets["100"]).toBeUndefined();
+
+        // Act
+        state = commonReducer(state, actions.hideLoader(100, 7));
+
+        // Verify
+        expect(state.loadingTargets["100:7"]).toBeUndefined();
+        expect(state.loadingTargets["100:8"]).toBe(1);
+    });
+
+    test("Given a parametrized and an unparametrized target sharing a number Then they do not collide", () => {
+        // Act
+        let state = commonReducer(undefined, actions.showLoader(100));
+        state = commonReducer(state, actions.showLoader(100, 7));
+
+        // Verify
+        expect(state.loadingTargets["100"]).toBe(1);
+        expect(state.loadingTargets["100:7"]).toBe(1);
+    });
 });

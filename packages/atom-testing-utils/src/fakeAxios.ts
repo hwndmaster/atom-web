@@ -4,7 +4,7 @@ import MockAdapter from "axios-mock-adapter";
 type GetReplyDescriptor = ReturnType<MockAdapter["onGet"]>;
 type PostReplyDescriptor = ReturnType<MockAdapter["onPost"]>;
 type PutReplyDescriptor = ReturnType<MockAdapter["onPut"]>;
-type DeleteReplyDescriptor = ReturnType<MockAdapter["onDelete"]>
+type DeleteReplyDescriptor = ReturnType<MockAdapter["onDelete"]>;
 type ParamPrimitive = string | number | boolean;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type BodyParam = Record<string, any> | any[]; // Object type for body parameters (for POST operations), which can be any shape

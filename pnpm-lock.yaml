@@ -492,6 +492,9 @@ importers:
       react-router-dom:
         specifier: 'catalog:'
         version: 7.14.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      redux-persist:
+        specifier: 'catalog:'
+        version: 6.0.0(react@19.2.5)(redux@5.0.1)
       redux-saga:
         specifier: 'catalog:'
         version: 1.4.2

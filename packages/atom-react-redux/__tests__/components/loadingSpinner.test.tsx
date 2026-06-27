@@ -65,3 +65,31 @@ test("When another target is activating, loading spinner stays inactive", () => 
     expect(loadingSpinner).toBeInTheDocument();
     expect(loadingSpinner).toHaveAttribute("data-loading", "false");
 });
+
+test("When a parametrized target is activated, only the spinner with the matching param is active", () => {
+    // Arrange
+    const target = 100;
+    const activeParam = 1;
+    const otherParam = 2;
+    renderWithProviders(
+        <>
+            <LoadingSpinner target={target} param={activeParam}>
+                <p>first</p>
+            </LoadingSpinner>
+            <LoadingSpinner target={target} param={otherParam}>
+                <p>second</p>
+            </LoadingSpinner>
+        </>,
+        store,
+        fakeRouterHistory
+    );
+
+    // Act
+    act(() => {
+        store.dispatch(Common.Actions.showLoader(target, activeParam));
+    });
+
+    // Verify
+    expect(screen.getByTestId(`LoadingSpinner__${target}__${activeParam}`)).toHaveAttribute("data-loading", "true");
+    expect(screen.getByTestId(`LoadingSpinner__${target}__${otherParam}`)).toHaveAttribute("data-loading", "false");
+});

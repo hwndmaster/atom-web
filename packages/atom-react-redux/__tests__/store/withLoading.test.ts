@@ -41,4 +41,21 @@ describe("withLoading", () => {
         expect(second.value).toEqual(put(common.Actions.hideLoader(loadingTarget)));
         expect(() => iterator.next()).toThrow("Saga failed");
     });
+
+    test("Given a param Then dispatches show and hide for that parametrized target", () => {
+        // Arrange
+        const loadingTarget = 100;
+        const param = 42;
+        const iterator = withLoading(loadingTarget, successfulNumberSaga, param);
+
+        // Act
+        const first = iterator.next();
+        const second = iterator.next();
+        const third = iterator.next();
+
+        // Verify
+        expect(first.value).toEqual(put(common.Actions.showLoader(loadingTarget, param)));
+        expect(second.value).toEqual(put(common.Actions.hideLoader(loadingTarget, param)));
+        expect(third).toEqual({ value: 55, done: true });
+    });
 });

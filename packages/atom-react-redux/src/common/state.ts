@@ -1,5 +1,5 @@
 interface CommonState {
-    loadingTargets: Partial<Record<number, number>>;
+    loadingTargets: Partial<Record<string, number>>;
 }
 
 export default CommonState;

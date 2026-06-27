@@ -1,5 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import * as actions from "./actions";
+import { loadingKeyFromPayload } from "./loadingKey";
 import CommonState from "./state";
 
 const initialState: CommonState = {
@@ -9,12 +10,14 @@ const initialState: CommonState = {
 const commonReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(actions.showLoader, (state, action) => {
-            state.loadingTargets[action.payload] = (state.loadingTargets[action.payload] ?? 0) + 1;
+            const key = loadingKeyFromPayload(action.payload);
+            state.loadingTargets[key] = (state.loadingTargets[key] ?? 0) + 1;
         })
         .addCase(actions.hideLoader, (state, action) => {
-            state.loadingTargets[action.payload] = (state.loadingTargets[action.payload] ?? 1) - 1;
-            if ((state.loadingTargets[action.payload] ?? 0) <= 0) {
-                delete state.loadingTargets[action.payload];
+            const key = loadingKeyFromPayload(action.payload);
+            state.loadingTargets[key] = (state.loadingTargets[key] ?? 1) - 1;
+            if ((state.loadingTargets[key] ?? 0) <= 0) {
+                delete state.loadingTargets[key];
             }
         })
         .addCase(actions.hideAllLoaders, (state, _action) => {

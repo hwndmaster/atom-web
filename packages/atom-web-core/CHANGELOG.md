@@ -1,5 +1,11 @@
 # @hwndmaster/atom-web-core
 
+## 0.1.6
+
+### Patch Changes
+
+- Parametrizes Loading Targets
+
 ## 0.1.5
 
 ### Patch Changes

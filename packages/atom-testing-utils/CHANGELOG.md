@@ -1,5 +1,14 @@
 # @hwndmaster/atom-testing-utils
 
+## 0.1.10
+
+### Patch Changes
+
+- Parametrizes Loading Targets
+- Updated dependencies
+  - @hwndmaster/atom-react-redux@0.1.9
+  - @hwndmaster/atom-web-core@0.1.6
+
 ## 0.1.9
 
 ### Patch Changes

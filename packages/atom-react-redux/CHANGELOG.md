@@ -1,5 +1,15 @@
 # @hwndmaster/atom-react-redux
 
+## 0.1.9
+
+### Patch Changes
+
+- Parametrizes Loading Targets
+- Updated dependencies
+  - @hwndmaster/atom-web-core@0.1.6
+  - @hwndmaster/atom-api-core@0.1.6
+  - @hwndmaster/atom-react-core@0.1.10
+
 ## 0.1.8
 
 ### Patch Changes

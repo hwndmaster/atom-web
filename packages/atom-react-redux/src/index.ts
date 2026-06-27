@@ -26,6 +26,8 @@ export { ApiCallResult } from "./callApi";
 // Common slice (for use in FakeStore integration)
 export * as Common from "./common";
 export type { default as CommonState } from "./common/state";
+export { buildLoadingKey } from "./common/loadingKey";
+export type { LoadingTargetPayload, ParametrizedLoadingTarget } from "@hwndmaster/atom-web-core";
 
 // Types
 export type { SagaGenerator, SagaGeneratorReturns, SagaFunction } from "./types";

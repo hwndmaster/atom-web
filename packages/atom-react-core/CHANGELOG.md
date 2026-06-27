@@ -1,5 +1,12 @@
 # @hwndmaster/atom-react-core
 
+## 0.1.10
+
+### Patch Changes
+
+- Updated dependencies
+  - @hwndmaster/atom-web-core@0.1.6
+
 ## 0.1.9
 
 ### Patch Changes
