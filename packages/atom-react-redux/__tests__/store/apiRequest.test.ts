@@ -46,6 +46,38 @@ describe("callApi", () => {
         expect(dispatched).toHaveLength(1);
         expect(dispatched[0]).toEqual({ type: "DUMMY_ACTION", payload: null });
     });
+
+    test("Given a 409 conflict and onVersionConflict Then should recover, raise a friendly error and fail", async () => {
+        // Arrange
+        axiosMock.onPut(TestEndpoint).reply(409);
+
+        // Act
+        const dispatched: { type: string; payload?: unknown }[] = [];
+        let isSucceeded = false;
+        await runSaga(
+            { dispatch: (action: { type: string }) => dispatched.push(action) },
+            function* () {
+                try {
+                    yield* callApi(async () => dummyPutCall())
+                        .onVersionConflict({
+                            recover: function* () {
+                                yield put({ type: "RECOVER_ACTION" });
+                            },
+                        })
+                        .invoke();
+                    isSucceeded = true;
+                } catch {
+                    // Expected: a version conflict fails the request.
+                }
+            }
+        ).toPromise();
+
+        // Verify
+        expect(isSucceeded).toBe(false);
+        expect(dispatched.some((action) => action.type === "RECOVER_ACTION")).toBe(true);
+        const raised = dispatched.find((action) => action.type === "common/raiseError");
+        expect(raised?.payload).toEqual(expect.objectContaining({ title: "Changed elsewhere" }));
+    });
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,4 +96,8 @@ function* callApiNullableSaga(): Generator<any, any, any> {
 
 async function dummyApiCall(): Promise<ApiResponse<string>> {
     return axiosInstance.get(TestEndpoint);
+}
+
+async function dummyPutCall(): Promise<ApiResponse<string>> {
+    return axiosInstance.put(TestEndpoint);
 }

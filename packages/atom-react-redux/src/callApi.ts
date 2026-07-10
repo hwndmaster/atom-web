@@ -7,6 +7,32 @@ type ValidationErrorsByField = Record<string, string[]>;
 
 type ApiValidationErrorMessages = ValidationErrorsByField;
 
+const HttpStatusConflict = 409;
+
+const DefaultVersionConflictTitle = "Changed elsewhere";
+const DefaultVersionConflictMessage
+    = "This item was modified since you opened it. The latest version has been reloaded — "
+    + "please review your changes and try again.";
+
+/**
+ * Configures how a version conflict (HTTP 409) is handled for a single API request.
+ * Enable it with {@link ApiRequest.onVersionConflict}.
+ */
+interface VersionConflictHandling {
+    /**
+     * Optional recovery saga run when a conflict is detected — typically re-fetches the entity so
+     * the store carries a fresh concurrency token and the user can retry.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    recover?: () => Generator<any, void, any>;
+
+    /** Notification title. Defaults to "Changed elsewhere". */
+    title?: string;
+
+    /** Notification message. Defaults to a generic reload-and-retry message. */
+    message?: string;
+}
+
 class ApiValidationError extends Error {
     public readonly statusCode: number;
     public readonly validationErrorMessages: ApiValidationErrorMessages;
@@ -100,6 +126,7 @@ class ApiRequest<TResponse> {
     private nullOnStatuses: number[] = [];
     private isSuppressErrorLogs = false;
     private isThrowOnError = true;
+    private versionConflictHandling: VersionConflictHandling | undefined;
 
     constructor(private readonly apiAction: () => Promise<ApiResponse<TResponse>>) {
     }
@@ -116,6 +143,17 @@ class ApiRequest<TResponse> {
 
     public throwOnError(throwError = true): ApiRequest<TResponse> {
         this.isThrowOnError = throwError;
+        return this;
+    }
+
+    /**
+     * Enables optimistic-concurrency handling for this request. When the server responds with a
+     * version conflict (HTTP 409), the optional {@link VersionConflictHandling.recover} saga runs
+     * (e.g. to re-fetch the entity), a friendly notification is raised instead of the raw error, and
+     * the request still fails so the caller's success path does not run.
+     */
+    public onVersionConflict(handling: VersionConflictHandling = {}): ApiRequest<TResponse> {
+        this.versionConflictHandling = handling;
         return this;
     }
 
@@ -164,6 +202,32 @@ class ApiRequest<TResponse> {
         }
 
         return null;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private *handleVersionConflict(error: unknown, handling: VersionConflictHandling): Generator<any, ApiCallResult<TResponse>, any> {
+        if (handling.recover != null) {
+            yield* handling.recover();
+        }
+
+        if (!this.isSuppressErrorLogs) {
+            yield put(commonActions.raiseError({
+                title: handling.title ?? DefaultVersionConflictTitle,
+                message: handling.message ?? DefaultVersionConflictMessage,
+            }));
+        }
+
+        if (this.isThrowOnError) {
+            const wrappedError: HasToastedError = {
+                name: "VersionConflictError",
+                message: handling.message ?? DefaultVersionConflictMessage,
+                cause: error,
+                toasted: !this.isSuppressErrorLogs,
+            };
+            throw wrappedError;
+        }
+
+        return new ApiCallResult<TResponse>(undefined, [handling.message ?? DefaultVersionConflictMessage], HttpStatusConflict);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -218,6 +282,12 @@ class ApiRequest<TResponse> {
             if (response?.status === 200) {
                 return new ApiCallResult<TResponse>(response.data, [], response.status);
             } else {
+                if (response.status === HttpStatusConflict
+                    && this.versionConflictHandling != null
+                    && !this.nullOnStatuses.includes(response.status)) {
+                    return yield* this.handleVersionConflict(undefined, this.versionConflictHandling);
+                }
+
                 if (this.isThrowOnError && !this.nullOnStatuses.includes(response.status)) {
                     throw new Error("Error code " + response.status, {
                         cause: `API call failed with error code ${response.status}`,
@@ -240,6 +310,10 @@ class ApiRequest<TResponse> {
 
             if (this.nullOnStatuses.includes(statusCode)) {
                 return new ApiCallResult<TResponse>(undefined, [(error ?? "Api call failed").toString()], statusCode);
+            }
+
+            if (statusCode === HttpStatusConflict && this.versionConflictHandling != null) {
+                return yield* this.handleVersionConflict(error, this.versionConflictHandling);
             }
 
             const validationErrorMessages = this.processValidationError(error, statusCode);
@@ -290,6 +364,6 @@ export function callApi<TResponse>(
     return new ApiRequest(apiAction);
 }
 
-export type { ApiValidationErrorMessages };
+export type { ApiValidationErrorMessages, VersionConflictHandling };
 export { ApiValidationError, isApiValidationError };
 export { ApiCallResult };

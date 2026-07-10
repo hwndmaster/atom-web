@@ -1,5 +1,11 @@
 # @hwndmaster/atom-react-redux
 
+## 0.1.10
+
+### Patch Changes
+
+- Add `ApiRequest.onVersionConflict(...)` for optimistic-concurrency handling. When the server responds with HTTP 409, an optional `recover` saga runs (e.g. to re-fetch the entity), a friendly notification is raised instead of the raw error, and the request still fails so the caller's success path does not run.
+
 ## 0.1.9
 
 ### Patch Changes
