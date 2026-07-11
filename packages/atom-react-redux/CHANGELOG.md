@@ -1,5 +1,11 @@
 # @hwndmaster/atom-react-redux
 
+## 0.1.11
+
+### Patch Changes
+
+- Add `ApiRequest.onError(...)` for customizing the user-facing error notification of a failed request. The factory receives the HTTP status code and raw response body and returns `{ title, message }`, or `undefined` to keep the default handling. Validation errors and `onVersionConflict` handling take precedence.
+
 ## 0.1.10
 
 ### Patch Changes

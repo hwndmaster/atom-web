@@ -22,7 +22,7 @@ export type { ValidatableCallbackOptions } from "./withValidatableCallback";
 // callApi saga builder
 export { callApi } from "./callApi";
 export { ApiCallResult } from "./callApi";
-export type { VersionConflictHandling } from "./callApi";
+export type { VersionConflictHandling, ApiErrorMessageFactory } from "./callApi";
 
 // Common slice (for use in FakeStore integration)
 export * as Common from "./common";

@@ -1,7 +1,8 @@
 import { call, put } from "redux-saga/effects";
 import { ApiResponse, ApiCallResult } from "@hwndmaster/atom-api-core";
-import type { HasToastedError } from "@hwndmaster/atom-web-core";
+import type { ErrorInfo, HasToastedError } from "@hwndmaster/atom-web-core";
 import * as commonActions from "./common/actions";
+import { SagaGeneratorReturns } from "./types";
 
 type ValidationErrorsByField = Record<string, string[]>;
 
@@ -32,6 +33,14 @@ interface VersionConflictHandling {
     /** Notification message. Defaults to a generic reload-and-retry message. */
     message?: string;
 }
+
+/**
+ * Builds a user-facing error notification for a failed API request. Return `undefined` to fall
+ * back to the default error handling for that status code.
+ * @param statusCode The HTTP status code of the failed request (500 when unknown).
+ * @param responseText The raw response body, when available.
+ */
+type ApiErrorMessageFactory = (statusCode: number, responseText?: string) => ErrorInfo | undefined;
 
 class ApiValidationError extends Error {
     public readonly statusCode: number;
@@ -127,6 +136,7 @@ class ApiRequest<TResponse> {
     private isSuppressErrorLogs = false;
     private isThrowOnError = true;
     private versionConflictHandling: VersionConflictHandling | undefined;
+    private errorMessageFactory: ApiErrorMessageFactory | undefined;
 
     constructor(private readonly apiAction: () => Promise<ApiResponse<TResponse>>) {
     }
@@ -157,6 +167,26 @@ class ApiRequest<TResponse> {
         return this;
     }
 
+    /**
+     * Customizes the user-facing error notification for this request. When the request fails, the
+     * factory receives the HTTP status code and raw response body and returns the notification to
+     * show instead of the default "Error code NNN" one; return `undefined` to keep the default
+     * handling. Validation errors (parseable 400 responses) and {@link onVersionConflict} handling
+     * take precedence. The request still fails so the caller's success path does not run.
+     *
+     * @example
+     * yield* callApi(() => api.photos.upload(request))
+     *     .onError((statusCode, responseText) => ({
+     *         title: "Photo upload failed",
+     *         message: statusCode === 413 ? "The photo is too large." : responseText ?? "Unknown error.",
+     *     }))
+     *     .invoke();
+     */
+    public onError(errorMessageFactory: ApiErrorMessageFactory): ApiRequest<TResponse> {
+        this.errorMessageFactory = errorMessageFactory;
+        return this;
+    }
+
     private getStatusCode(error: unknown): number {
         if (!isObjectRecord(error)) {
             return 500;
@@ -171,6 +201,29 @@ class ApiRequest<TResponse> {
         }
 
         return 500;
+    }
+
+    private getResponseText(error: unknown): string | undefined {
+        if (!isObjectRecord(error)) {
+            return undefined;
+        }
+
+        let responseText: string | undefined;
+        if (typeof error.response === "string") {
+            responseText = error.response;
+        } else if (isObjectRecord(error.response) && typeof error.response.data === "string") {
+            responseText = error.response.data;
+        } else if (typeof error.result === "string") {
+            responseText = error.result;
+        }
+
+        if (responseText == null) {
+            return undefined;
+        }
+
+        // Plain-string API responses (e.g. BadRequest("reason")) arrive JSON-encoded — unwrap them.
+        const parsed = tryParseJson(responseText);
+        return typeof parsed === "string" ? parsed : responseText;
     }
 
     private processValidationError(error: unknown, statusCode: number): ValidationErrorsByField | null {
@@ -204,30 +257,36 @@ class ApiRequest<TResponse> {
         return null;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private *handleVersionConflict(error: unknown, handling: VersionConflictHandling): Generator<any, ApiCallResult<TResponse>, any> {
+    private *handleVersionConflict(error: unknown, handling: VersionConflictHandling): SagaGeneratorReturns<ApiCallResult<TResponse>> {
         if (handling.recover != null) {
             yield* handling.recover();
         }
 
+        return yield* this.handleCustomError(error, HttpStatusConflict, {
+            title: handling.title ?? DefaultVersionConflictTitle,
+            message: handling.message ?? DefaultVersionConflictMessage,
+        }, "VersionConflictError");
+    }
+
+    private *handleCustomError(error: unknown, statusCode: number, errorInfo: ErrorInfo, errorName = "ApiCallError"): SagaGeneratorReturns<ApiCallResult<TResponse>> {
         if (!this.isSuppressErrorLogs) {
             yield put(commonActions.raiseError({
-                title: handling.title ?? DefaultVersionConflictTitle,
-                message: handling.message ?? DefaultVersionConflictMessage,
+                title: errorInfo.title ?? "Error",
+                message: errorInfo.message,
             }));
         }
 
         if (this.isThrowOnError) {
             const wrappedError: HasToastedError = {
-                name: "VersionConflictError",
-                message: handling.message ?? DefaultVersionConflictMessage,
+                name: errorName,
+                message: errorInfo.message,
                 cause: error,
                 toasted: !this.isSuppressErrorLogs,
             };
             throw wrappedError;
         }
 
-        return new ApiCallResult<TResponse>(undefined, [handling.message ?? DefaultVersionConflictMessage], HttpStatusConflict);
+        return new ApiCallResult<TResponse>(undefined, [errorInfo.message], statusCode);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -288,6 +347,14 @@ class ApiRequest<TResponse> {
                     return yield* this.handleVersionConflict(undefined, this.versionConflictHandling);
                 }
 
+                if (this.errorMessageFactory != null && !this.nullOnStatuses.includes(response.status)) {
+                    const responseText = typeof response.data === "string" ? response.data : undefined;
+                    const errorInfo = this.errorMessageFactory(response.status, responseText);
+                    if (errorInfo != null) {
+                        return yield* this.handleCustomError(undefined, response.status, errorInfo);
+                    }
+                }
+
                 if (this.isThrowOnError && !this.nullOnStatuses.includes(response.status)) {
                     throw new Error("Error code " + response.status, {
                         cause: `API call failed with error code ${response.status}`,
@@ -330,6 +397,13 @@ class ApiRequest<TResponse> {
                 );
             }
 
+            if (this.errorMessageFactory != null) {
+                const errorInfo = this.errorMessageFactory(statusCode, this.getResponseText(error));
+                if (errorInfo != null) {
+                    return yield* this.handleCustomError(error, statusCode, errorInfo);
+                }
+            }
+
             if (!this.isSuppressErrorLogs) {
                 yield put(commonActions.raiseError(error));
             }
@@ -364,6 +438,6 @@ export function callApi<TResponse>(
     return new ApiRequest(apiAction);
 }
 
-export type { ApiValidationErrorMessages, VersionConflictHandling };
+export type { ApiValidationErrorMessages, VersionConflictHandling, ApiErrorMessageFactory };
 export { ApiValidationError, isApiValidationError };
 export { ApiCallResult };

@@ -78,6 +78,60 @@ describe("callApi", () => {
         const raised = dispatched.find((action) => action.type === "common/raiseError");
         expect(raised?.payload).toEqual(expect.objectContaining({ title: "Changed elsewhere" }));
     });
+
+    test("Given a failing request and onError Then should raise the custom notification and fail", async () => {
+        // Arrange
+        axiosMock.onPost(TestEndpoint).reply(413, "<html>Request Entity Too Large</html>");
+
+        // Act
+        const dispatched: { type: string; payload?: unknown }[] = [];
+        let isSucceeded = false;
+        await runSaga(
+            { dispatch: (action: { type: string }) => dispatched.push(action) },
+            function* () {
+                try {
+                    yield* callApi(async () => dummyPostCall())
+                        .onError((statusCode) => statusCode === 413
+                            ? { title: "Photo upload failed", message: "The photo is too large." }
+                            : undefined)
+                        .invoke();
+                    isSucceeded = true;
+                } catch {
+                    // Expected: the request still fails after the custom notification.
+                }
+            }
+        ).toPromise();
+
+        // Verify
+        expect(isSucceeded).toBe(false);
+        const raised = dispatched.find((action) => action.type === "common/raiseError");
+        expect(raised?.payload).toEqual({ title: "Photo upload failed", message: "The photo is too large." });
+    });
+
+    test("Given a failing request and onError returning undefined Then should keep default handling", async () => {
+        // Arrange
+        axiosMock.onPost(TestEndpoint).reply(500);
+
+        // Act
+        const dispatched: { type: string; payload?: unknown }[] = [];
+        await runSaga(
+            { dispatch: (action: { type: string }) => dispatched.push(action) },
+            function* () {
+                try {
+                    yield* callApi(async () => dummyPostCall())
+                        .onError(() => undefined)
+                        .invoke();
+                } catch {
+                    // Expected: default handling still fails the request.
+                }
+            }
+        ).toPromise();
+
+        // Verify - the default raiseError was dispatched (an error object, not our custom info).
+        const raised = dispatched.find((action) => action.type === "common/raiseError");
+        expect(raised).toBeDefined();
+        expect(raised?.payload).not.toEqual(expect.objectContaining({ title: "Photo upload failed" }));
+    });
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -100,4 +154,8 @@ async function dummyApiCall(): Promise<ApiResponse<string>> {
 
 async function dummyPutCall(): Promise<ApiResponse<string>> {
     return axiosInstance.put(TestEndpoint);
+}
+
+async function dummyPostCall(): Promise<ApiResponse<string>> {
+    return axiosInstance.post(TestEndpoint);
 }
