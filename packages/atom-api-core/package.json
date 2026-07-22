@@ -30,8 +30,8 @@
     "devDependencies": {
         "@hwndmaster/atom-eslint-common": "workspace:*",
         "@hwndmaster/atom-eslint-stylistic": "workspace:*",
-        "eslint": "catalog:",
         "axios": "catalog:",
+        "eslint": "catalog:",
         "tsup": "catalog:",
         "typescript": "catalog:"
     },

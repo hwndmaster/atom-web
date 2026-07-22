@@ -25,9 +25,9 @@
         "test:coverage": "vitest run --coverage"
     },
     "dependencies": {
-        "@hwndmaster/atom-web-core": "workspace:*",
         "@hwndmaster/atom-api-core": "workspace:*",
-        "@hwndmaster/atom-react-core": "workspace:*"
+        "@hwndmaster/atom-react-core": "workspace:*",
+        "@hwndmaster/atom-web-core": "workspace:*"
     },
     "peerDependencies": {
         "@reduxjs/toolkit": ">=2.0.0",
@@ -40,34 +40,34 @@
         "redux-saga": ">=1.0.0"
     },
     "devDependencies": {
+        "@hwndmaster/atom-api-core": "workspace:*",
         "@hwndmaster/atom-eslint-common": "workspace:*",
         "@hwndmaster/atom-eslint-react": "workspace:*",
         "@hwndmaster/atom-eslint-stylistic": "workspace:*",
         "@hwndmaster/atom-react-core": "workspace:*",
         "@hwndmaster/atom-testing-utils": "workspace:*",
-        "eslint": "catalog:",
         "@hwndmaster/atom-web-core": "workspace:*",
+        "@reduxjs/toolkit": "catalog:",
         "@testing-library/jest-dom": "catalog:",
         "@testing-library/react": "catalog:",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
         "@vitejs/plugin-react": "catalog:",
-        "axios-mock-adapter": "catalog:",
         "@vitest/coverage-v8": "catalog:",
+        "axios": "catalog:",
+        "axios-mock-adapter": "catalog:",
+        "eslint": "catalog:",
         "jsdom": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
-        "sass": "catalog:",
-        "vitest": "catalog:",
-        "@hwndmaster/atom-api-core": "workspace:*",
-        "@reduxjs/toolkit": "catalog:",
-        "axios": "catalog:",
         "react-redux": "catalog:",
         "redux": "catalog:",
         "redux-persist": "catalog:",
         "redux-saga": "catalog:",
+        "sass": "catalog:",
         "tsup": "catalog:",
-        "typescript": "catalog:"
+        "typescript": "catalog:",
+        "vitest": "catalog:"
     },
     "publishConfig": {
         "registry": "https://npm.pkg.github.com",
