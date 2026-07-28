@@ -1,5 +1,13 @@
 # @hwndmaster/atom-testing-utils
 
+## 0.1.14
+
+### Patch Changes
+
+- e4ad2f4: callApi fixes, useAtomForm removal
+- Updated dependencies [e4ad2f4]
+  - @hwndmaster/atom-react-redux@0.1.13
+
 ## 0.1.13
 
 ### Patch Changes

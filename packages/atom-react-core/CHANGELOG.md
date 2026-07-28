@@ -1,5 +1,11 @@
 # @hwndmaster/atom-react-core
 
+## 0.2.1
+
+### Patch Changes
+
+- e4ad2f4: callApi fixes, useAtomForm removal
+
 ## 0.2.0
 
 ### Minor Changes

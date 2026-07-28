@@ -1,5 +1,13 @@
 # @hwndmaster/atom-react-prime
 
+## 0.1.17
+
+### Patch Changes
+
+- e4ad2f4: callApi fixes, useAtomForm removal
+- Updated dependencies [e4ad2f4]
+  - @hwndmaster/atom-react-core@0.2.1
+
 ## 0.1.16
 
 ### Patch Changes
