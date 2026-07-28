@@ -246,6 +246,10 @@ class ApiRequest<TResponse> {
                 candidates.push(error.response.data);
             }
         }
+        // NSwag's generated `throwException` rethrows the deserialized 400 body as-is rather than
+        // wrapping it, so the error may itself be the ProblemDetails payload. Checked last to keep
+        // the wrapped-error candidates above taking precedence.
+        candidates.push(error);
 
         for (const candidate of candidates) {
             const parsedErrors = parseValidationProblemDetails(candidate);

@@ -1,5 +1,23 @@
 # @hwndmaster/atom-react-redux
 
+## 0.1.12
+
+### Patch Changes
+
+- Fix server-side field validation errors being dropped for NSwag-generated API clients.
+
+  NSwag's generated `throwException` rethrows the deserialized 400 response body as-is instead of
+  wrapping it, so the thrown value is the `ProblemDetails` payload itself. `processValidationError`
+  only inspected `error.result`, `error.response` and `error.response.data`, none of which exist on a
+  bare payload, so no `ApiValidationError` was ever constructed: `validationReject` never fired and
+  field-level errors never reached the form, falling back to a generic error instead.
+
+  The error object itself is now also considered as a candidate payload. It is checked last, so the
+  existing wrapped-error shapes keep their precedence.
+
+- Updated dependencies
+  - @hwndmaster/atom-react-core@0.2.0
+
 ## 0.1.11
 
 ### Patch Changes

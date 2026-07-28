@@ -4,6 +4,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { ApiResponse } from "@hwndmaster/atom-api-core";
 import { callApi } from "@/index";
+import { type ApiValidationError, isApiValidationError } from "@/callApi";
 
 const TestEndpoint = "TestEndpoint";
 
@@ -132,7 +133,70 @@ describe("callApi", () => {
         expect(raised).toBeDefined();
         expect(raised?.payload).not.toEqual(expect.objectContaining({ title: "Photo upload failed" }));
     });
+
+    test("Given a 400 rejecting with a bare ProblemDetails Then should throw ApiValidationError with the field errors", async () => {
+        // Arrange - NSwag's generated throwException rethrows the deserialized body as-is,
+        // so the thrown value is the ProblemDetails object itself with no wrapper.
+        const problemDetails = {
+            type: "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+            title: "One or more validation errors occurred.",
+            status: 400,
+            errors: { Name: ["A category with name 'Food' already exists."] },
+        };
+
+        // Act
+        const caught = await captureSagaError(function* () {
+            yield* callApi(async () => {
+                // Deliberately a non-Error object: this is what the generated NSwag client throws for a 400.
+                // eslint-disable-next-line @typescript-eslint/only-throw-error
+                throw problemDetails;
+            }).invoke();
+        });
+
+        // Verify
+        expect(isApiValidationError(caught)).toBe(true);
+        expect((caught as ApiValidationError).statusCode).toBe(400);
+        expect((caught as ApiValidationError).validationErrorMessages).toEqual({
+            Name: ["A category with name 'Food' already exists."],
+        });
+    });
+
+    test("Given a 400 wrapped in an error with a result payload Then should still resolve the field errors", async () => {
+        // Arrange - the pre-existing wrapped shape must keep working (precedence unchanged).
+        const wrappedError = {
+            status: 400,
+            result: { errors: { Quantity: ["Quantity must be at least 0.1."] } },
+        };
+
+        // Act
+        const caught = await captureSagaError(function* () {
+            yield* callApi(async () => {
+                // Deliberately a non-Error object, matching the wrapped shape seen from real API clients.
+                // eslint-disable-next-line @typescript-eslint/only-throw-error
+                throw wrappedError;
+            }).invoke();
+        });
+
+        // Verify
+        expect(isApiValidationError(caught)).toBe(true);
+        expect((caught as ApiValidationError).validationErrorMessages).toEqual({
+            Quantity: ["Quantity must be at least 0.1."],
+        });
+    });
 });
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function captureSagaError(saga: () => Generator<any, any, any>): Promise<unknown> {
+    let caught: unknown;
+    await runSaga({ dispatch: () => undefined }, function* () {
+        try {
+            yield* saga();
+        } catch (error) {
+            caught = error;
+        }
+    }).toPromise();
+    return caught;
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function* callApiSaga(): Generator<any, any, any> {
