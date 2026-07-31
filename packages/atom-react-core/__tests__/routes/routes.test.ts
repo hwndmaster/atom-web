@@ -1,4 +1,4 @@
-import type { Location as ReactLocation, NavigateFunction } from "react-router-dom";
+import type { Location as ReactLocation, NavigateFunction } from "react-router";
 import { getCurrentRoute, getRouteWithParameters, goTo, type RouteDefinition } from "@/routes/routes";
 
 const testRoutes: Record<string, RouteDefinition> = {

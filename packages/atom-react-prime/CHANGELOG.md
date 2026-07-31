@@ -1,5 +1,12 @@
 # @hwndmaster/atom-react-prime
 
+## 0.1.18
+
+### Patch Changes
+
+- Updated dependencies
+  - @hwndmaster/atom-react-core@0.3.0
+
 ## 0.1.17
 
 ### Patch Changes

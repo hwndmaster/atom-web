@@ -1,6 +1,6 @@
 {
     "name": "@hwndmaster/atom-react-core",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "description": "Shared React components and utilities — CircularProgress, LoadingSpinner, validation refs, route utilities",
     "type": "module",
     "exports": {
@@ -33,7 +33,7 @@
         "react-dom": ">=18.0.0",
         "react-hook-form": ">=7.0.0",
         "react-redux": ">=8.0.0",
-        "react-router-dom": ">=6.0.0",
+        "react-router": ">=8.0.0",
         "zod": ">=3.0.0"
     },
     "devDependencies": {
@@ -54,7 +54,7 @@
         "react-dom": "catalog:",
         "react-hook-form": "catalog:",
         "react-redux": "catalog:",
-        "react-router-dom": "catalog:",
+        "react-router": "catalog:",
         "sass": "catalog:",
         "tsup": "catalog:",
         "typescript": "catalog:",

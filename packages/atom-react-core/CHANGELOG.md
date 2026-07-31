@@ -1,5 +1,32 @@
 # @hwndmaster/atom-react-core
 
+## 0.3.0
+
+### Minor Changes
+
+- **Breaking:** migrate from `react-router-dom` to `react-router` v8.
+
+  React Router v8 removed the `react-router-dom` package entirely; DOM-specific code now lives in
+  `react-router` and `react-router/dom`. The `react-router-dom` peer dependency is therefore replaced
+  by `react-router` (`>=8.0.0`), and all internal imports now come from `react-router`.
+
+  This also clears GHSA-qwww-vcr4-c8h2 (high): `react-router` was vulnerable in `>=7.12.0 <8.3.0` and
+  is patched in `8.3.0`. Because `react-router-dom@7.18.1` pins `react-router@7.18.1` exactly, the
+  patched version is unreachable while depending on `react-router-dom` — dropping it is the only fix.
+
+  Consuming apps must migrate too:
+
+  ```diff
+  -import { Outlet, useLocation, useNavigate, useParams, createBrowserRouter } from "react-router-dom";
+  +import { Outlet, useLocation, useNavigate, useParams, createBrowserRouter } from "react-router";
+
+  -import { RouterProvider } from "react-router-dom";
+  +import { RouterProvider } from "react-router/dom";
+  ```
+
+  Note the new floors imposed by react-router v8: React >= 19.2.7, Node >= 22.22.0, Vite >= 7, and
+  ESM-only publishing.
+
 ## 0.2.1
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { Router } from "react-router-dom";
+import { Router } from "react-router";
 import * as testReact from "@testing-library/react";
 import { Provider } from "react-redux";
 import { JSX } from "react/jsx-runtime";

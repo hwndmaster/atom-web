@@ -1,5 +1,12 @@
 # @hwndmaster/atom-react-redux
 
+## 0.1.14
+
+### Patch Changes
+
+- Updated dependencies
+  - @hwndmaster/atom-react-core@0.3.0
+
 ## 0.1.13
 
 ### Patch Changes

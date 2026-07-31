@@ -1,4 +1,4 @@
-import { NavigateFunction, Location as ReactLocation } from "react-router-dom";
+import { NavigateFunction, Location as ReactLocation } from "react-router";
 
 export interface RouteDefinition {
     path: string;
