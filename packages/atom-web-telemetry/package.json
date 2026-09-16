@@ -1,0 +1,61 @@
+{
+    "name": "@hwndmaster/atom-web-telemetry",
+    "version": "0.2.0",
+    "description": "Browser OpenTelemetry for Atom SPAs — traces, log export, resilient OTLP exporters and a reporting error boundary",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "lint": "eslint .",
+        "test": "vitest run --passWithNoTests",
+        "test:coverage": "vitest run --coverage"
+    },
+    "dependencies": {
+        "@opentelemetry/api": "^1.9.1",
+        "@opentelemetry/api-logs": "^0.218.0",
+        "@opentelemetry/exporter-logs-otlp-proto": "^0.218.0",
+        "@opentelemetry/exporter-trace-otlp-proto": "^0.218.0",
+        "@opentelemetry/instrumentation": "^0.218.0",
+        "@opentelemetry/instrumentation-document-load": "^0.63.0",
+        "@opentelemetry/instrumentation-fetch": "^0.218.0",
+        "@opentelemetry/instrumentation-xml-http-request": "^0.218.0",
+        "@opentelemetry/resources": "^2.9.0",
+        "@opentelemetry/sdk-logs": "^0.218.0",
+        "@opentelemetry/sdk-trace-web": "^2.9.0",
+        "@opentelemetry/semantic-conventions": "^1.41.1"
+    },
+    "peerDependencies": {
+        "react": ">=18.0.0"
+    },
+    "devDependencies": {
+        "@hwndmaster/atom-eslint-common": "workspace:*",
+        "@hwndmaster/atom-eslint-react": "workspace:*",
+        "@hwndmaster/atom-eslint-stylistic": "workspace:*",
+        "@types/react": "catalog:",
+        "@vitejs/plugin-react": "catalog:",
+        "@vitest/coverage-v8": "catalog:",
+        "eslint": "catalog:",
+        "jsdom": "catalog:",
+        "react": "catalog:",
+        "tsup": "catalog:",
+        "typescript": "catalog:",
+        "vitest": "catalog:"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
+    }
+}
