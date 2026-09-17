@@ -32,6 +32,25 @@ describe("callApi", () => {
         expect(dispatched[0]).toEqual({ type: "DUMMY_ACTION", payload: "TestResponse" });
     });
 
+    test.each([201, 202, 204])(
+        "Given a %i status Then should succeed rather than raise an error",
+        async (status) => {
+            // Arrange
+            axiosMock.onGet(TestEndpoint).reply(status);
+
+            // Act
+            const dispatched: { type: string; payload?: unknown }[] = [];
+            await runSaga(
+                { dispatch: (action: { type: string }) => dispatched.push(action) },
+                callApiSaga
+            ).toPromise();
+
+            // Verify
+            expect(dispatched.filter(x => x.type !== "DUMMY_ACTION")).toHaveLength(0);
+            expect(dispatched).toHaveLength(1);
+        }
+    );
+
     test("Given 204 status and returnNullOn(204) Then should return null", async () => {
         // Arrange
         axiosMock.onGet(TestEndpoint).reply(204);

@@ -1,5 +1,23 @@
 # @hwndmaster/atom-react-redux
 
+## 0.1.15
+
+### Patch Changes
+
+- Treat every 2xx response as a successful API call, not only 200.
+
+  `ApiRequest.invokeRaw` matched `status === 200` exactly, so any other success status took the failure
+  branch: it raised an "API call failed with error code NNN" notification and, since `throwOnError`
+  defaults to true, threw — which also stopped whatever the caller had queued after the call.
+
+  That hit any endpoint answering something other than 200. An action that hands its work to a
+  background task and returns `Accepted()` (202) reported a failure over a request the server had
+  accepted and was already running, and a command with nothing to return (`NoContent()`, 204) failed
+  while having done its job, leaving the follow-up refresh unexecuted.
+
+  `returnNullOn` is unaffected: those statuses are still resolved to `null` before the result is
+  inspected, so an existing `returnNullOn(204)` keeps returning `null` rather than becoming a value.
+
 ## 0.1.14
 
 ### Patch Changes

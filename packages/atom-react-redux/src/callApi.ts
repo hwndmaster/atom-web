@@ -9,6 +9,18 @@ type ValidationErrorsByField = Record<string, string[]>;
 type ApiValidationErrorMessages = ValidationErrorsByField;
 
 const HttpStatusConflict = 409;
+const HttpStatusSuccessFrom = 200;
+const HttpStatusSuccessBelow = 300;
+
+/**
+ * Whether a response status means the call succeeded. Every 2xx counts, not only 200: an endpoint that
+ * hands its work to a background task answers 202, and one with nothing to return answers 204. Treating
+ * those as failures surfaced "API call failed with error code 202" over a request the server had in fact
+ * accepted, and stopped the caller's success path from running.
+ */
+function isSuccessStatus(status: number): boolean {
+    return status >= HttpStatusSuccessFrom && status < HttpStatusSuccessBelow;
+}
 
 const DefaultVersionConflictTitle = "Changed elsewhere";
 const DefaultVersionConflictMessage
@@ -342,7 +354,7 @@ class ApiRequest<TResponse> {
 
             const response: ApiResponse<TResponse> = responseUnknown;
 
-            if (response?.status === 200) {
+            if (isSuccessStatus(response.status)) {
                 return new ApiCallResult<TResponse>(response.data, [], response.status);
             } else {
                 if (response.status === HttpStatusConflict
